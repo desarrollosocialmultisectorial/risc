@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <title>Login</title>
+        <link href="css/estilo.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+                
+        <div id="cuadro">
+            <form action="LoginServerlet" method="post">
+                
+                <p id="titulo">ACCESO</p>
+                <hr>
+                
+                <br/><br/>                
+                <label id ="subtitulo1">USUARIO</label> 
+                <br/><br/>
+                <input type="text" name="txtUsuario" class="entrada">
+                
+                <br/><br/>                
+                <label id ="subtitulo1">CONTRASEÑA</label> 
+                <br/><br/>
+                <input type="password" name="txtContra" class="entrada"><br>
+                
+                <br/><br/>
+                <input type="submit" name="btnIngresar_login" value="Ingresar" id="boton"><br>                        
+            </form>
+     
+        <p id="error">
+       
+        </p>
+        </div>
+ 
+    </body>
+</html>

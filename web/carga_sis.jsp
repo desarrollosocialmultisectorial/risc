@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="Modelado.OperacionesPuntoDigitacionBase"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="Modelado.Operaciones"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -50,7 +51,7 @@
         
         <h2 align="center">CARGA DE DATOS SIS</h2>        
         </br>
-        <form action="Carga_Periodo.jsp" method="post" enctype="multipart/form-data">
+        <form action="CargaSisServerlet" method="post" enctype="multipart/form-data">
             <table border="1" width="250" align="center">
                 <tr>
                     <td>
@@ -64,7 +65,8 @@
         
       
         
-        <h2 align="center">ARCHIVO CORRECTAMENTE SUBIDO...</h2>
+        <h2 align="center">  <%  out.print(request.getSession().getAttribute("Mensaje_SIS").toString());%></h2>
+        <%  request.getSession().setAttribute("Mensaje_SIS", "");%>
         
         <table border="1" width="600" align="center">
             <tr bgcolor="skyblue">
@@ -78,9 +80,9 @@
             </tr>
             
             <% Operaciones op =new Operaciones();
-            
+             OperacionesPuntoDigitacionBase pd=new OperacionesPuntoDigitacionBase( request.getSession().getAttribute("Nombre_Base_Punto").toString());
             String var=request.getSession().getAttribute("Nombre_Base_Punto").toString();
-              ResultSet rs=op.dev_cargas_sis(var);
+              ResultSet rs=pd.dev_cargas_sis(var);
               System.out.print(var);
                 try{
                 

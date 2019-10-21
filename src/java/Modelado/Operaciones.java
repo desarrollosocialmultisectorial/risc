@@ -1,6 +1,9 @@
 package Modelado;
 
+import java.io.File;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Operaciones {
     
@@ -137,6 +140,54 @@ public class Operaciones {
             System.out.print("Error :"+e);
         }                   
         return re;
+        }
+        
+        public boolean crear_carpetas_cargas(){
+        boolean res=false;
+          Connection cnx = null ;
+        try {
+            String ls_pd="";
+          
+            try {
+                Class.forName(this.driver);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             cnx = DriverManager.getConnection(this.url,this.uss,this.contra);
+            Statement sta = cnx.createStatement();
+            ResultSet rs = sta.executeQuery("select id_pundig from bddiresa.pun$dig;");            
+            File folder;
+            while (rs.next()){                
+                folder = new File("D://Cargas//"+rs.getString(1));
+                if (!folder.isDirectory()) { // escribimos algo si es un directorio }
+                    folder.mkdirs();
+                }
+            } 
+            res=true;
+        } catch (SQLException ex) {
+            Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            cnx.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return res;
+        }
+        
+        
+        public  void ejecutar_consulta  (String consulta){
+            
+                try {
+                     Class.forName(this.driver);
+                    Connection conn = DriverManager.getConnection(this.url,this.uss,this.contra);
+                    PreparedStatement ps = conn.prepareStatement(consulta);  
+                    ps.executeQuery();
+                    conn.close();
+
+                } catch (Exception ex) {
+                    Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+                }
         }
     
 }

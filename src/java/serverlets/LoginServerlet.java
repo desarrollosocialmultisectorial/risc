@@ -6,6 +6,7 @@
 package serverlets;
 
 import Modelado.Operaciones;
+import Modelado.OperacionesPuntoDigitacionBase;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 
 /**
  *
@@ -47,7 +49,9 @@ public class LoginServerlet extends HttpServlet {
          request.getSession().setAttribute("Punto de Digitacion", con);
          
           request.getSession().setAttribute("Nombre_Punto", op.dev_pun_dig(con));
+          
           request.getSession().setAttribute("Nombre_Base_Punto", op.dev_nom_base_pun_dig(con));
+         
         if(nivel ==2){
         response.sendRedirect("main.jsp");
         }else{

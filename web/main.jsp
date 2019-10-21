@@ -12,7 +12,12 @@
         
         <p id="sub_titulo">            
             Punto de Digitacion-<%  
-            out.write(request.getSession().getAttribute("Nombre_Punto").toString()); %>
+            out.write(request.getSession().getAttribute("Nombre_Punto").toString()); 
+               request.getSession().setAttribute("Mensaje_SIS", "");   
+             request.getSession().setAttribute("ArchivoCorrupto", "");
+       
+            %>
+      
         </p>
         <hr>
         

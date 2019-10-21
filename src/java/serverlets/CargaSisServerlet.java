@@ -88,7 +88,9 @@ public class CargaSisServerlet extends HttpServlet {
                
                 } catch (ZipException e) {
                 
-                    e.printStackTrace();
+               //     e.printStackTrace();
+                    request.getSession().setAttribute("ArchivoCorrupto","El archivo no existe o esta corrupto");
+                    
                 
             }
         

@@ -65,8 +65,12 @@
         
       
         
-        <h2 align="center">  <%  out.print(request.getSession().getAttribute("Mensaje_SIS").toString());%></h2>
-        <%  request.getSession().setAttribute("Mensaje_SIS", "");%>
+        <h2 align="center">  <%  out.write( request.getSession().getAttribute("ArchivoCorrupto").toString());
+             request.getSession().setAttribute("ArchivoCorrupto", "");
+            out.print(request.getSession().getAttribute("Mensaje_SIS").toString());%></h2>
+        <%  request.getSession().setAttribute("Mensaje_SIS", "");
+        
+             %>
         
         <table border="1" width="600" align="center">
             <tr bgcolor="skyblue">

@@ -36,7 +36,7 @@
                     <ul id="sub-menu">
                         <li><a href="Reporte_Nino.jsp"><img src="imagen/editar.png" >Niño</a></li>
                         <li><a href="Reporte_Materno.jsp"><img src="imagen/eliminar.png">Materno</a></li>
-                        <li><a href="">Produccion digitadores SIS</a></li>
+                        <li><a href="">Produccion digitadores HIS</a></li>
                         <li><a href="">Comparativos</a></li>
                         <li><a href="ReporteAnemia.jsp">Reporte de anemia</a>
                     </ul>
@@ -44,7 +44,7 @@
             </ul>
         </div>     
         
-        <h2 align="center">CARGA DE DATOS SIS</h2>        
+        <h2 align="center">CARGA DE DATOS HIS</h2>        
         </br>
         <form action="Carga_Periodo.jsp" method="post" enctype="multipart/form-data">
             <table border="1" width="250" align="center">

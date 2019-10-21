@@ -4,6 +4,9 @@
     Author     : ALEX ARANA
 --%>
 
+
+<%@page import="java.sql.ResultSet"%>
+<%@page import="Modelado.Operaciones"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,7 +20,8 @@
         
        
         
-        <p id="sub_titulo"></p>
+        <p id="sub_titulo"> Punto de Digitacion-<%  
+            out.write(request.getSession().getAttribute("Nombre_Punto").toString()); %></p>
         <hr>
         
         <div id="menu-wrapper">
@@ -72,6 +76,25 @@
                 <th>Mes</th>
                 <th>Cantidad</th>
             </tr>
+            
+            <% Operaciones op =new Operaciones();
+            
+            String var=request.getSession().getAttribute("Nombre_Base_Punto").toString();
+              ResultSet rs=op.dev_cargas_sis(var);
+              System.out.print(var);
+                try{
+                
+                    while (rs.next()){
+                        %>
+                        <tr>
+                            <th><%=rs.getString(1)%></th>
+                            <th><%=rs.getString(2)%></th>
+                            <th><%=rs.getString(3)%></th>
+                        </tr>
+                        <%
+                    }
+                }catch (Exception e){}
+            %>            
         
         </table>
             

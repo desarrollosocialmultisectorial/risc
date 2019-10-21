@@ -7,11 +7,13 @@
         <link href="css/estilo_main.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <p id="titulo">SISTEMA DIRESA CAJAMARCA <%  
-            out.write(request.getSession().getAttribute("Punto de Digitacion").toString()); %></p>
+        <p id="titulo">SISTEMA DIRESA CAJAMARCA</p>
        
         
-        <p id="sub_titulo"></p>
+        <p id="sub_titulo">            
+            Punto de Digitacion-<%  
+            out.write(request.getSession().getAttribute("Nombre_Punto").toString()); %>
+        </p>
         <hr>
         
         <div id="menu-wrapper">

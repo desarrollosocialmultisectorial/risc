@@ -45,6 +45,9 @@ public class LoginServerlet extends HttpServlet {
          System.out.println(nivel);
          
          request.getSession().setAttribute("Punto de Digitacion", con);
+         
+          request.getSession().setAttribute("Nombre_Punto", op.dev_pun_dig(con));
+          request.getSession().setAttribute("Nombre_Base_Punto", op.dev_nom_base_pun_dig(con));
         if(nivel ==2){
         response.sendRedirect("main.jsp");
         }else{

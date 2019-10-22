@@ -34,8 +34,7 @@
                         <li><a href="carga_sis.jsp">SIS</a></li>
                         <li><a href="carga_his.jsp">HIS</a></li>
                         <li><a href="">SISMED</a></li>
-                    
-            </ul>
+                    </ul>
             <ul>
                 <li><a href="">Reportes</a>
                     <ul id="sub-menu">

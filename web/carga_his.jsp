@@ -4,6 +4,9 @@
     Author     : ALEX ARANA
 --%>
 
+<%@page import="java.sql.ResultSet"%>
+<%@page import="Modelado.OperacionesPuntoDigitacionBase"%>
+<%@page import="Modelado.Operaciones"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -46,7 +49,7 @@
         
         <h2 align="center">CARGA DE DATOS HIS</h2>        
         </br>
-        <form action="Carga_Periodo.jsp" method="post" enctype="multipart/form-data">
+        <form action="CargaHisServerlet" method="post" enctype="multipart/form-data">
             <table border="1" width="250" align="center">
                 <tr>
                     <td>
@@ -72,6 +75,25 @@
                 <th>Mes</th>
                 <th>Cantidad</th>
             </tr>
+             <% 
+             OperacionesPuntoDigitacionBase pd=new OperacionesPuntoDigitacionBase( request.getSession().getAttribute("Nombre_Base_Punto").toString());
+            String var=request.getSession().getAttribute("Nombre_Base_Punto").toString();
+              ResultSet rs=pd.dev_cargas_his(var);
+              System.out.print(var);
+                try{
+                
+                    while (rs.next()){
+                        %>
+                        <tr>
+                            <th><%=rs.getString(1)%></th>
+                            <th><%=rs.getString(2)%></th>
+                            <th><%=rs.getString(3)%></th>
+                        </tr>
+                        <%
+                    }
+                }catch (Exception e){}
+            %>            
+        
         
         </table>
             

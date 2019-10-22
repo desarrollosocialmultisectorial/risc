@@ -65,6 +65,24 @@ public class OperacionesPuntoDigitacionBase {
        }
        return resul;
     }
+       public ResultSet dev_cargas_his(String nom_pun_dig){
+        ResultSet resul = null;
+       try {
+           PreparedStatement st = null;
+           try {
+               String  ls_cad = "select distinct a.año,a.mes,cantidad from "+nom_pun_dig+".sis_his as a where a.programa='HIS' order by cast(a.año as decimal) desc,cast(a.mes as decimal) desc";
+               ResultSet re=null;
+               System.out.print(ls_cad);
+               st=dev_conexion().prepareStatement(ls_cad);
+           } catch (SQLException ex) {
+               Logger.getLogger(OperacionesPuntoDigitacionBase.class.getName()).log(Level.SEVERE, null, ex);
+           }
+         resul=  st.executeQuery();
+       } catch (SQLException ex) {
+           Logger.getLogger(OperacionesPuntoDigitacionBase.class.getName()).log(Level.SEVERE, null, ex);
+       }
+       return resul;
+    }
     
    
     

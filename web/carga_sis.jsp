@@ -19,7 +19,7 @@
     <body>
         <p id="titulo">SISTEMA DIRESA CAJAMARCA</p>
         
-       
+       <a href='index.html'><p id='titulox'>Cerrar sesion</p></a>
         
         <p id="sub_titulo"> Punto de Digitacion-<%  
             out.write(request.getSession().getAttribute("Nombre_Punto").toString()); %></p>

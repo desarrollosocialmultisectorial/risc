@@ -11,12 +11,17 @@ public class Operaciones {
     String url;
     String uss;
     String contra;
+       ResultSet re=null;
     
     public Operaciones(){
         driver = "com.mysql.jdbc.Driver";
         url = "jdbc:mysql://localhost:3306/bddiresa";
         uss = "root";
         contra = ".";        
+    }
+
+    public ResultSet getRe() {
+        return re;
     }
     
     public int loguear(String uss, String contra){
@@ -118,7 +123,7 @@ public class Operaciones {
         public ResultSet dev_cargas_sis(String nom_pun_dig){
         
          String  ls_cad = "select distinct a.año,a.mes,cantidad from "+nom_pun_dig+".sis_his as a where a.programa='SIS' order by cast(a.año as decimal) desc,cast(a.mes as decimal) desc";
-         ResultSet re=null;
+     
          System.out.print(ls_cad);
        
        try {
@@ -126,7 +131,7 @@ public class Operaciones {
             Class.forName(this.driver);
           Connection  conn= DriverManager.getConnection(this.url,this.uss,this.contra);            
            PreparedStatement ps = conn.prepareStatement(ls_cad);
-           re= ps.executeQuery();     
+           this.re= ps.executeQuery();     
           
      
             conn.close();
@@ -139,7 +144,9 @@ public class Operaciones {
         }catch(SQLException e) {
             System.out.print("Error :"+e);
         }                   
-        return re;
+
+        return this.re;
+
         }
         
         public boolean crear_carpetas_cargas(){
@@ -184,11 +191,11 @@ public class Operaciones {
                     PreparedStatement ps = conn.prepareStatement(consulta);  
                     ps.executeQuery();
                     conn.close();
-                    System.out.println("Modelado.Operaciones.ejecutar_consulta()"+consulta);
 
                 } catch (Exception ex) {
                     Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
                 }
+
         }
     
 }

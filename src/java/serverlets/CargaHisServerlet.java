@@ -8,9 +8,15 @@ package serverlets;
 import Modelado.Operaciones;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.Writer;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -60,7 +66,7 @@ public class CargaHisServerlet extends HttpServlet {
                 List<FileItem> partes = upload.parseRequest(request);
                 for(FileItem items: partes){
                      if(!items.isFormField()){
-                    File file = new File(archivourl,"Nominal"+request.getSession().getAttribute("Punto de Digitacion")+".csv");
+                    File file = new File(archivourl,"Nominal"+request.getSession().getAttribute("Punto de Digitacion")+"nc.csv");
                     items.write(file);
                      }
                 }               
@@ -70,6 +76,31 @@ public class CargaHisServerlet extends HttpServlet {
                     e.printStackTrace();
                 
             }
+            //codifica en utf-8
+                        FileInputStream fis = new FileInputStream(new File(archivourl,"Nominal"+request.getSession().getAttribute("Punto de Digitacion")+"nc.csv"));
+            InputStreamReader isr = new InputStreamReader(fis);
+
+            Reader in = new BufferedReader(isr);
+            StringBuffer buffer = new StringBuffer();
+
+            int ch;
+            while ((ch = in.read()) > -1) {
+                buffer.append((char)ch);
+            }
+            in.close();
+
+
+            FileOutputStream fos = new FileOutputStream(new File(archivourl,"Nominal"+request.getSession().getAttribute("Punto de Digitacion")+".csv"));
+            Writer csv = new OutputStreamWriter(fos, "UTF8");
+            csv.write(buffer.toString());
+            csv.close();
+            
+            
+            
+            
+            
+            
+            
             
             
             
@@ -97,7 +128,7 @@ public class CargaHisServerlet extends HttpServlet {
                     op.ejecutar_consulta(ls_cad);
                     
                     //Cargar data
-                    ls_cad="LOAD DATA INFILE 'D://Cargas//"+punt_dig+"//Nominal"+punt_dig+".csv' INTO TABLE "+nom_base+".aux_his_his FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 LINES;";
+                    ls_cad="LOAD DATA INFILE 'D://Cargas//"+punt_dig+"//Nominal"+punt_dig+".csv' INTO TABLE "+nom_base+".aux_his_his FIELDS TERMINATED BY ';' LINES TERMINATED BY '\r\n' IGNORE 1 LINES;";
                     op.ejecutar_consulta(ls_cad);
                     //out.print(ls_cad);
                                         

@@ -10,7 +10,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -48,6 +47,9 @@ public class CargaHisServerlet extends HttpServlet {
         
     
         response.setContentType("text/html;charset=UTF-8");
+         String archivourl = "D://Cargas//"+request.getSession().getAttribute("Punto de Digitacion");
+         File filenc = new File(archivourl,"Nominal"+request.getSession().getAttribute("Punto de Digitacion")+"nc.csv");
+         File file = new File(archivourl,"Nominal"+request.getSession().getAttribute("Punto de Digitacion")+".csv");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
           
@@ -57,17 +59,19 @@ public class CargaHisServerlet extends HttpServlet {
             
             
               //CARGAR ARCHIVOS            
-            String archivourl = "D://Cargas//"+request.getSession().getAttribute("Punto de Digitacion");
+           
             DiskFileItemFactory factory = new DiskFileItemFactory();
             factory.setSizeThreshold(1024);
             factory.setRepository(new File(archivourl));
             ServletFileUpload upload = new ServletFileUpload(factory);
+             
             try{
                 List<FileItem> partes = upload.parseRequest(request);
+                
                 for(FileItem items: partes){
                      if(!items.isFormField()){
-                    File file = new File(archivourl,"Nominal"+request.getSession().getAttribute("Punto de Digitacion")+"nc.csv");
-                    items.write(file);
+                    
+                    items.write(filenc);
                      }
                 }               
                     
@@ -77,7 +81,7 @@ public class CargaHisServerlet extends HttpServlet {
                 
             }
             //codifica en utf-8
-                        FileInputStream fis = new FileInputStream(new File(archivourl,"Nominal"+request.getSession().getAttribute("Punto de Digitacion")+"nc.csv"));
+            FileInputStream fis = new FileInputStream(filenc);
             InputStreamReader isr = new InputStreamReader(fis);
 
             Reader in = new BufferedReader(isr);
@@ -90,7 +94,7 @@ public class CargaHisServerlet extends HttpServlet {
             in.close();
 
 
-            FileOutputStream fos = new FileOutputStream(new File(archivourl,"Nominal"+request.getSession().getAttribute("Punto de Digitacion")+".csv"));
+            FileOutputStream fos = new FileOutputStream(file);
             Writer csv = new OutputStreamWriter(fos, "UTF8");
             csv.write(buffer.toString());
             csv.close();
@@ -111,11 +115,10 @@ public class CargaHisServerlet extends HttpServlet {
         nom_base= request.getSession().getAttribute("Nombre_Base_Punto").toString();
            String ls_cad = "D://Cargas//"+request.getSession().getAttribute("Punto de Digitacion").toString()+"//Nominal"+request.getSession().getAttribute("Punto de Digitacion").toString()+".csv";
             
-            File archivo = new File(ls_cad);            
-            if (archivo.exists()){
+                    
+            if (file.exists()){
                 
-                BufferedReader entrada;
-                entrada = new BufferedReader( new FileReader(archivo) );
+            
 
                 /*while(entrada.ready()){                                                        
                     ls_idPPDD = entrada.readLine();  
@@ -131,7 +134,8 @@ public class CargaHisServerlet extends HttpServlet {
                     ls_cad="LOAD DATA INFILE 'D://Cargas//"+punt_dig+"//Nominal"+punt_dig+".csv' INTO TABLE "+nom_base+".aux_his_his FIELDS TERMINATED BY ';' LINES TERMINATED BY '\r\n' IGNORE 1 LINES;";
                     op.ejecutar_consulta(ls_cad);
                     //out.print(ls_cad);
-                                        
+                      
+                    
                     /*PASAR DATOS A TABLAS DEFINITIVAS*/
                     ls_cad ="select a.año from "+nom_base+".aux_his_his as a limit 1";
                      String gs_periodo = op.met_dev_reg(ls_cad);
@@ -142,13 +146,22 @@ public class CargaHisServerlet extends HttpServlet {
                     ls_cad="call bddiresa.p_migra_his('"+nom_base+ "','" + gs_periodo+ "','" + gs_mes+ "');";
                     
                     op.ejecutar_consulta(ls_cad);
+                    
+                    // ELIMINAR EL ARCHIVO CARGADO
             
-            
-            
-            
+          
+              
             
         }
+            System.out.print(file.getAbsoluteFile());
+             System.out.print(filenc.getAbsoluteFile());
             
+              if(file.delete()){
+               System.out.print("Se elimino"+file.getAbsoluteFile());
+              };
+               if(filenc.delete()){
+               System.out.print("Se elimino"+filenc.getAbsoluteFile());
+              };
             
             response.sendRedirect("carga_his.jsp");
             

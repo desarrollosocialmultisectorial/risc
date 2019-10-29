@@ -191,7 +191,7 @@ public class Operaciones {
                     PreparedStatement ps = conn.prepareStatement(consulta);  
                     ps.executeQuery();
                     conn.close();
-
+               System.out.print(consulta );
                 } catch (Exception ex) {
                     Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
                 }

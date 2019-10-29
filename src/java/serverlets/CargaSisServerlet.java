@@ -50,7 +50,7 @@ public class CargaSisServerlet extends HttpServlet {
         //crear carpetas de cargas   
             Operaciones op=new Operaciones();
             op.crear_carpetas_cargas();
-            
+             File file = null;
             
               //CARGAR ARCHIVOS            
             String archivourl = "D://Cargas//"+request.getSession().getAttribute("Punto de Digitacion");
@@ -62,7 +62,7 @@ public class CargaSisServerlet extends HttpServlet {
                 List<FileItem> partes = upload.parseRequest(request);
                 for(FileItem items: partes){
                      if(!items.isFormField()){
-                    File file = new File(archivourl,"exportarsis"+request.getSession().getAttribute("Punto de Digitacion")+".zip");
+                     file = new File(archivourl,"exportarsis"+request.getSession().getAttribute("Punto de Digitacion")+".zip");
                     items.write(file);
                      }
                 }               
@@ -149,9 +149,14 @@ public class CargaSisServerlet extends HttpServlet {
             ls_cad = "call bddiresa.p_migra('"+ls_pd+"','"+ls_ano+"','"+ls_mes+"');";
             //out.print(ls_cad);
             op.ejecutar_consulta(ls_cad);   
-                     
+             
+            File eliminar=new File(file.getAbsolutePath());
+            eliminar.delete();
+            eliminar.mkdir();
+            
         }
             request.getSession().setAttribute("Mensaje_SIS", "ARCHIVO CORRECTAMENTE SUBIDO...");
+           
             response.sendRedirect("carga_sis.jsp");
     }
     }

@@ -44,13 +44,13 @@ public class LoginServerlet extends HttpServlet {
          Integer nivel= op.loguear(usu, con);
         System.out.println(usu);
         System.out.println("ESTA TRAANDO DE INGRESAR EL PUNTO DE DIGITACION "+con);
-         System.out.println(nivel);
+         System.out.println("USUARIO NIVEL" +nivel);
          
          request.getSession().setAttribute("Punto de Digitacion", con);
          
-          request.getSession().setAttribute("Nombre_Punto", op.dev_pun_dig(con));
+         request.getSession().setAttribute("Nombre_Punto", op.dev_pun_dig(con));
           
-          request.getSession().setAttribute("Nombre_Base_Punto", op.dev_nom_base_pun_dig(con));
+         request.getSession().setAttribute("Nombre_Base_Punto", op.dev_nom_base_pun_dig(con));
          
         if(nivel ==2){
         response.sendRedirect("main.jsp");

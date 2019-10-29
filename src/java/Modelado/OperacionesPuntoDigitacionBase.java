@@ -52,7 +52,7 @@ public class OperacionesPuntoDigitacionBase {
        try {
            PreparedStatement st = null;
            try {
-               String  ls_cad = "select distinct a.año,a.mes,cantidad from "+nom_pun_dig+".sis_his as a where a.programa='SIS' order by cast(a.año as decimal) desc,cast(a.mes as decimal) desc";
+               String  ls_cad = "select  a.año,a.mes,SUM(CAST(cantidad AS UNSIGNED)) AS CANTIDAD  from "+nom_pun_dig+".sis_his as a where a.programa='SIS' GROUP BY a.año,a.mes order by cast(a.año as decimal) desc,cast(a.mes as decimal) desc";
                ResultSet re=null;
                System.out.print(ls_cad);
                st=dev_conexion().prepareStatement(ls_cad);
@@ -70,7 +70,7 @@ public class OperacionesPuntoDigitacionBase {
        try {
            PreparedStatement st = null;
            try {
-               String  ls_cad = "select distinct a.año,a.mes,cantidad from "+nom_pun_dig+".sis_his as a where a.programa='HIS' order by cast(a.año as decimal) desc,cast(a.mes as decimal) desc";
+               String  ls_cad = "select  a.año,a.mes,SUM(CAST(cantidad AS UNSIGNED)) AS CANTIDAD from "+nom_pun_dig+".sis_his as a where a.programa='HIS' GROUP BY a.año,a.mes order by cast(a.año as decimal) desc,cast(a.mes as decimal) desc";
                ResultSet re=null;
                System.out.print(ls_cad);
                st=dev_conexion().prepareStatement(ls_cad);
@@ -78,6 +78,7 @@ public class OperacionesPuntoDigitacionBase {
                Logger.getLogger(OperacionesPuntoDigitacionBase.class.getName()).log(Level.SEVERE, null, ex);
            }
          resul=  st.executeQuery();
+         dev_conexion().close();
        } catch (SQLException ex) {
            Logger.getLogger(OperacionesPuntoDigitacionBase.class.getName()).log(Level.SEVERE, null, ex);
        }

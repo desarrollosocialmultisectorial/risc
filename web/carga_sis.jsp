@@ -28,18 +28,17 @@
         <div id="menu-wrapper">
             <ul id="hmenu">
                 <li><a href="">Inicio</a></li>
-                <li><a href="">Cargas</a></li>
-
-                    
+                <li><a href="">Cargas</a> 
+                    <ul id="sub-menu">
                         <li><a href="carga_sis.jsp">SIS</a></li>
                         <li><a href="carga_his.jsp">HIS</a></li>
                         <li><a href="">SISMED</a></li>
                     </ul>
-            <ul>
-                <li><a href="">Reportes</a>
+                </li>
+              <li><a href="">Reportes</a>
                     <ul id="sub-menu">
                         <li><a href="Reporte_Nino.jsp"><img src="imagen/editar.png" >Niño</a></li>
-                        <li><a href="Reporte_Materno.jsp"><img src="imagen/eliminar.png">Materno</a></li>
+                        <li><a href="Reporte_Materno.jsp"><img src="imagen/eliminar.png" >Materno</a></li>
                         <li><a href="">Produccion digitadores SIS</a></li>
                         <li><a href="">Comparativos</a></li>
                         <li><a href="ReporteAnemia.jsp">Reporte de anemia</a>

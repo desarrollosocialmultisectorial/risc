@@ -51,6 +51,7 @@ public class LoginServerlet extends HttpServlet {
          request.getSession().setAttribute("Nombre_Punto", op.dev_pun_dig(con));
           
          request.getSession().setAttribute("Nombre_Base_Punto", op.dev_nom_base_pun_dig(con));
+         request.getSession().setAttribute("mensaje_flash_carga_his","");
          
         if(nivel ==2){
         response.sendRedirect("main.jsp");

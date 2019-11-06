@@ -150,7 +150,7 @@ public class CargaHisServerlet extends HttpServlet {
                     // ELIMINAR EL ARCHIVO CARGADO
             
           
-              
+              request.getSession().setAttribute("mensaje_flash_carga_his", "ARCHIVO CORRECTAMENTE SUBIDO...");
             
         }
             System.out.print(file.getAbsoluteFile());

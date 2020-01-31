@@ -6,16 +6,13 @@
 package serverlets;
 
 import Modelado.Operaciones;
-import Modelado.OperacionesPuntoDigitacionBase;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.Writer;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 
 /**
@@ -42,8 +39,8 @@ public class LoginServerlet extends HttpServlet {
       ot.write(usu);
       Operaciones op =new Operaciones();
          Integer nivel= op.loguear(usu, con);
-        System.out.println(usu);
-        System.out.println("ESTA TRAANDO DE INGRESAR EL PUNTO DE DIGITACION "+con);
+         System.out.println(usu);
+         System.out.println("ESTA TRAANDO DE INGRESAR EL PUNTO DE DIGITACION "+con);
          System.out.println("USUARIO NIVEL" +nivel);
          
          request.getSession().setAttribute("Punto de Digitacion", con);
@@ -53,11 +50,14 @@ public class LoginServerlet extends HttpServlet {
          request.getSession().setAttribute("Nombre_Base_Punto", op.dev_nom_base_pun_dig(con));
          request.getSession().setAttribute("mensaje_flash_carga_his","");
          
+        
         if(nivel ==2){
         response.sendRedirect("main.jsp");
-        }else{
-            response.sendRedirect("index.html");
         }
+        if(nivel ==1){
+        response.sendRedirect("admin.jsp");
+        }
+      
         
     }
 

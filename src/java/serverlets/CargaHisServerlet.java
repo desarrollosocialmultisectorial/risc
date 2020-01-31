@@ -93,12 +93,14 @@ public class CargaHisServerlet extends HttpServlet {
             }
             in.close();
 
-
+             Runtime garbage = Runtime.getRuntime();
+    garbage.gc();  
             FileOutputStream fos = new FileOutputStream(file);
             Writer csv = new OutputStreamWriter(fos, "UTF8");
             csv.write(buffer.toString());
             csv.close();
-            
+                        
+    garbage.gc();  
             
             
             
@@ -115,7 +117,7 @@ public class CargaHisServerlet extends HttpServlet {
         nom_base= request.getSession().getAttribute("Nombre_Base_Punto").toString();
            String ls_cad = "D://Cargas//"+request.getSession().getAttribute("Punto de Digitacion").toString()+"//Nominal"+request.getSession().getAttribute("Punto de Digitacion").toString()+".csv";
             
-                    
+        
             if (file.exists()){
                 
             
@@ -131,7 +133,12 @@ public class CargaHisServerlet extends HttpServlet {
                     op.ejecutar_consulta(ls_cad);
                     
                     //Cargar data
-                    ls_cad="LOAD DATA INFILE 'D://Cargas//"+punt_dig+"//Nominal"+punt_dig+".csv' INTO TABLE "+nom_base+".aux_his_his FIELDS TERMINATED BY ';' LINES TERMINATED BY '\r\n' IGNORE 1 LINES;";
+                       ls_cad="LOAD DATA INFILE 'D://Cargas//"+punt_dig+"//Nominal"+punt_dig+".csv' INTO TABLE "+nom_base+".aux_his_his FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' IGNORE 1 LINES ;";
+                    op.ejecutar_consulta(ls_cad);
+                    ls_cad="LOAD DATA INFILE 'D://Cargas//"+punt_dig+"//Nominal"+punt_dig+".csv' INTO TABLE "+nom_base+".aux_his_his FIELDS TERMINATED BY ',' LINES TERMINATED BY ',\n' IGNORE 1 LINES;";
+                    op.ejecutar_consulta(ls_cad);
+                    
+                      ls_cad="LOAD DATA INFILE 'D://Cargas//"+punt_dig+"//Nominal"+punt_dig+".csv' INTO TABLE "+nom_base+".aux_his_his FIELDS TERMINATED BY ';' LINES TERMINATED BY '\n' IGNORE 1 LINES ;";
                     op.ejecutar_consulta(ls_cad);
                     //out.print(ls_cad);
                       
@@ -156,13 +163,7 @@ public class CargaHisServerlet extends HttpServlet {
             System.out.print(file.getAbsoluteFile());
              System.out.print(filenc.getAbsoluteFile());
             
-              if(file.delete()){
-               System.out.print("Se elimino"+file.getAbsoluteFile());
-              };
-               if(filenc.delete()){
-               System.out.print("Se elimino"+filenc.getAbsoluteFile());
-              };
-            
+           
             response.sendRedirect("carga_his.jsp");
             
             

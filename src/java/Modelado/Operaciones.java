@@ -11,7 +11,7 @@ public class Operaciones {
     String url;
     String uss;
     String contra;
-       ResultSet re=null;
+    ResultSet re=null;
     
     public Operaciones(){
         driver = "com.mysql.jdbc.Driver";
@@ -20,6 +20,39 @@ public class Operaciones {
         contra = ".";        
     }
 
+     public ResultSet dev_cargas_consolid() {
+            ResultSet res=null;
+        
+                try {
+
+                    String  ls_cad1 = " select * from bddiresa.sis_his_consolid ";
+
+                    System.out.print(ls_cad1);
+
+
+                    try {
+                        Class.forName(this.driver);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    Connection  conn= DriverManager.getConnection(this.url,this.uss,this.contra);
+                    PreparedStatement ps = conn.prepareStatement(ls_cad1);
+                    res= ps.executeQuery();
+                    
+                    
+                
+
+
+
+
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+       
+        return res;
+        }
     public ResultSet getRe() {
         return re;
     }
@@ -189,13 +222,17 @@ public class Operaciones {
                      Class.forName(this.driver);
                     Connection conn = DriverManager.getConnection(this.url,this.uss,this.contra);
                     PreparedStatement ps = conn.prepareStatement(consulta);  
+                     System.out.print(consulta );
                     ps.executeQuery();
                     conn.close();
-               System.out.print(consulta );
+              
                 } catch (Exception ex) {
                     Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
         }
+        
+       
+        
     
 }
